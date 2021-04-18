@@ -1,0 +1,24 @@
+services:
+    db:
+        build:
+            context: .
+            dockerfile: Dockerfile-mysql
+        volumes:
+            - db_data:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PWD}
+            MYSQL_DATABASE: ${DB_NAME}
+    
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile-app
+        environment:
+            DB_HOST: ${DB_HOST}
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PWD: ${DB_PWD}
+
+volumes:
+    db_data:
