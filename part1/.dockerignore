@@ -1,4 +1,6 @@
 *
 !common
+!directory
+!product
 !main.go
 !sql
