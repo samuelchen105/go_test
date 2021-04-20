@@ -15,7 +15,6 @@
 # vendor/
 
 # environment
-.env
 
 go.mod
 go.sum
