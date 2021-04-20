@@ -9,6 +9,7 @@ import (
 )
 
 func HandlerRegister(rt *gin.RouterGroup) {
+	rt.GET("all", ReadAll)
 	rt.GET(":id", Read)
 	rt.POST("", Create)
 	rt.PATCH("", Update)
@@ -50,6 +51,19 @@ func Read(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"product": res})
+}
+
+func ReadAll(c *gin.Context) {
+	db := common.GetDatabase()
+	var res []Product
+
+	err := db.Find(&res).Error
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"products": res})
 }
 
 func Update(c *gin.Context) {
